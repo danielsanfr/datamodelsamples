@@ -48,7 +48,7 @@ void DynamicListDataModel::appendList(const QVariantList &value) {
 	m_list.append(value);
 	emit itemsChanged(bb::cascades::DataModelChangeType::AddRemove,
 			QSharedPointer<ListIndexMapper>(
-					new ListIndexMapper(0, size, false)));
+					new ListIndexMapper(size, value.size(), false)));
 	emit sizeChanged();
 }
 
@@ -107,7 +107,7 @@ int DynamicListDataModel::removeAll(const QVariant &value) {
 	int removeds = m_list.removeAll(value);
 	emit itemsChanged(bb::cascades::DataModelChangeType::AddRemove,
 			QSharedPointer<ListIndexMapper>(
-					new ListIndexMapper(0, size, true)));
+					new ListIndexMapper(size, size + removeds, true)));
 	emit sizeChanged();
 	return removeds;
 }
